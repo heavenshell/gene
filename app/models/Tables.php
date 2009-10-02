@@ -222,7 +222,7 @@ class Models_Tables extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Find user data by id
+     * Find data by id
      *
      * @param  mixed $id Id
      * @access public
