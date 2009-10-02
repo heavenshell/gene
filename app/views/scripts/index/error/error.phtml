@@ -1,0 +1,41 @@
+<div style="padding: 10px;">
+  <table>
+    <tr>
+      <th colspan='6'>Message</th>
+    </tr>
+    <?php foreach ($errors as $key => $val): ?>
+      <tr>
+        <td><?= $val ?></td>
+      </tr>
+    <?php endforeach; ?>
+  </table>
+  <?php if (isset($traces)): ?>
+  <table>
+    <?php foreach ($traces as $key => $val): ?>
+      <tr>
+        <th colspan='7'>Trace</th>
+      </tr>
+      <tr>
+        <th>File</td>
+        <td><?= $val['file'] ?></td>
+      </tr>
+      <tr>
+        <th>Line</td>
+        <td><?= $val['line'] ?></td>
+      </tr>
+      <tr>
+        <th>Class</td>
+        <td><?= $val['class'] ?></td>
+      </tr>
+      <tr>
+        <th>Type</td>
+        <td><?= $val['type'] ?></td>
+      </tr>
+      <tr>
+        <th>Functione</td>
+        <td><?= $val['function'] ?></td>
+      </tr>
+    <?php endforeach; ?>
+  </table>
+  <?php endif; ?>
+</div>
