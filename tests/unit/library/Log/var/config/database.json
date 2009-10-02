@@ -1,0 +1,5 @@
+{
+  "dsn": "mysql:host=localhost;dbname=gene_test;port=3306",
+  "username": "gene_test",
+  "password": "gene_test"
+}
