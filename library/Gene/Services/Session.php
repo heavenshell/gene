@@ -154,8 +154,12 @@ class Gene_Services_Session extends Gene_Services_Model
      * @access public
      * @return Gene_Services_Session Fluent interface
      */
-    public function remove($namespace)
+    public function remove($namespace = null)
     {
+        if (is_null($namespace)) {
+            $namespace = $this->_namespace;
+        }
+
         Zend_Session::namespaceUnset($namespace);
         return $this;
     }
