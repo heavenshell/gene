@@ -1,1 +1,10 @@
 Gene is a glue for Zend Framework.
+
+* Default view is Revulo_View_Phtmlc.
+Install Revulo_View_Phtmlc into library directory.
+http://www.revulo.com/ZendFramework/Component/Phtmlc.html
+
+* If you want to using Smarty as view, install into library directory.
+
+* Using Stagehand_Testrunner as test runner.
+http://github.com/piece/stagehand-testrunner
