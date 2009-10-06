@@ -265,6 +265,8 @@ class Gene_Services_App extends Gene_Services_Abstract
                 if (!$val->isDot() && $val->getFilename() !== $lang) {
                     $locale = new Zend_Locale($val->getFilename());
                     $lang   = $locale->getLanguage();
+                    $path   = $this->getTranslatePath() . $lang
+                            . DIRECTORY_SEPARATOR . $value;
                     break;
                 }
             }
