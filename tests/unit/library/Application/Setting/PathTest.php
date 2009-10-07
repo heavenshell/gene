@@ -101,18 +101,38 @@ class Gene_Application_Setting_Pathの動作Test extends PHPUnit_Framework_TestC
         $instance = new Gene_Application_Setting_Path();
         $module   = $instance->getModuleResources($path);
 
-        $expects  = array(
-            0 => array(
-                'namespace' => 'Admin',
-                'basePath'  => dirname(__FILE__) . '/var/modules/admin'
-            ),
-            1 => array(
-                'namespace' => 'Index',
-                'basePath'  => dirname(__FILE__) . '/var/modules/index'
-            )
-        );
+        $namespace = array();
+        $basePath  = array();
 
-        $this->assertEquals($module, $expects);
+        foreach ($module as $key => $val) {
+            if (key($val) === 'namespace') {
+                $namespace[] = $val['namespace'];
+            }
+            if (key($val) === 'basePath') {
+                $basePath[] = $val['basePath'];
+            }
+        }
+
+        $i = 0;
+        foreach ($namespace as $key => $val) {
+            if (in_array($val, array('Admin', 'Index'))) {
+                $i ++;
+            }
+        }
+        $this->assertSame(count($namespace), $i);
+
+        $i = 0;
+        $expects = array(
+            dirname(__FILE__) . '/var/modules/admin',
+            dirname(__FILE__) . '/var/modules/index'
+        );
+        foreach ($basePath as $key => $val) {
+            if (in_array($val, $expects)) {
+                $i ++;
+            }
+        }
+
+        $this->assertSame(count($basePath), $i);
     }
 
     public function testモジュールディレクトリのオートロードを設定できる()
