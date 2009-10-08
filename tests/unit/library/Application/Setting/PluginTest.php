@@ -91,7 +91,7 @@ class Gene_Application_Setting_Pluginの動作Test extends PHPUnit_Framework_Tes
         try {
             $plugins = $plugin->load()->getPlugin();
         } catch (Exception $e) {
-            $this->assertEquals($e->getMessage(), 'include(Plugins/Test/Fuga.php): failed to open stream: No such file or directory');
+            $this->assertEquals($e->getMessage(), 'include(plugins/Test/Fuga.php): failed to open stream: No such file or directory');
             return;
         }
         $this->fail('Exception does not occured.');
