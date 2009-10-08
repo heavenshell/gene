@@ -8,3 +8,8 @@ http://www.revulo.com/ZendFramework/Component/Phtmlc.html
 
 * Using Stagehand_Testrunner as test runner.
 http://github.com/piece/stagehand-testrunner
+
+* Using Db_Fixture library as make some fixtures
+You can install from Openpear/Db_Fixture
+pear channel-discover openpear.org
+pear openpear/Db_Fixture-beta

@@ -128,6 +128,8 @@ class Gene_Configの動作Test extends PHPUnit_Framework_TestCase
                 $actual[] = $val->getFilename();
             }
         }
+        sort($files);
+        sort($actual);
 
         $this->assertEquals($actual, $files);
         $cache->clean(Zend_Cache::CLEANING_MODE_ALL);

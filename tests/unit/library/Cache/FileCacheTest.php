@@ -214,6 +214,7 @@ class Gene_Cache_Fileの動作Test extends PHPUnit_Framework_TestCase
             )
         );
         $actual = $instance->setFrontend($options)->getFrontend();
+        sort($actual['master_files']);
         $this->assertEquals(
             $actual,
             array(
@@ -234,6 +235,7 @@ class Gene_Cache_Fileの動作Test extends PHPUnit_Framework_TestCase
         $instance  = Gene_Cache_File::getInstance(GENE_APP_PATH);
         $options   = new Zend_Config_Ini($appPath . '/var/config/test2.ini');
         $actual    = $instance->setOptions($options)->getFrontend();
+        sort($actual['master_files']);
         $this->assertEquals(
             $actual,
             array(
@@ -253,14 +255,14 @@ class Gene_Cache_Fileの動作Test extends PHPUnit_Framework_TestCase
         $cachePath = $appPath . '/var/cache/';
         $instance  = Gene_Cache_File::getInstance($appPath . '/var/');
         $actual    = $instance->directorySearch();
-        $this->assertEquals(
-            $actual,
-            array(
-                $appPath . '/var/config/test.ini',
-                $appPath . '/var/config/test.xml',
-                $appPath . '/var/config/test2.ini'
-            )
+        $expects   = array(
+            $appPath . '/var/config/test.ini',
+            $appPath . '/var/config/test.xml',
+            $appPath . '/var/config/test2.ini'
         );
+        sort($actual);
+        sort($expects);
+        $this->assertSame($actual, $expects);
     }
 
     public function test指定したディレクトリから特定の拡張子のmasterfileを取得できる()
