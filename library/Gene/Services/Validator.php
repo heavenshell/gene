@@ -104,6 +104,27 @@ abstract class Gene_Services_Validator extends Gene_Services_Model
     protected $_translate = null;
 
     /**
+     * Validator's default messages
+     *
+     * @var    mixed
+     * @access protected
+     */
+    protected $_validatorTranslate = null;
+
+    /**
+     * Set validator's default  messages
+     *
+     * @param  mixed $value
+     * @access public
+     * @return Gene_Services_Validator Fluent interface
+     */
+    public function setValidatorTranslate($value)
+    {
+        $this->_validatorTranslate = $value;
+        return $this;
+    }
+
+    /**
      * Set validation rules
      *
      * @access protected
@@ -157,6 +178,9 @@ abstract class Gene_Services_Validator extends Gene_Services_Model
      */
     public function isValid($data = null)
     {
+        if (!is_null($this->_validatorTranslate)) {
+            Zend_Validate_Abstract::setDefaultTranslator($this->_validatorTranslate);
+        }
 
         if (is_null($this->_rules)) {
             // Set validation rules, which is defined in sub class.
