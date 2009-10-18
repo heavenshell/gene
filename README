@@ -16,6 +16,6 @@ see http://github.com/piece/stagehand-testrunner
 Using Db_Fixture library for make some fixtures.
 http://openpear.org/package/Db_Fixture
 
-You can install it from ppenpear/Db_Fixture
+You can install it from openpear/Db_Fixture
 pear channel-discover openpear.org
 pear openpear/Db_Fixture-beta
