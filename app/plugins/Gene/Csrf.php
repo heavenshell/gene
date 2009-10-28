@@ -125,9 +125,9 @@ class Plugins_Gene_Csrf extends Zend_Controller_Plugin_Abstract
     /**
      * Validate session
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @access public
-     * @return void
+     * @return bool true:Token same, false:Token not same
      */
     public function validate($value)
     {
