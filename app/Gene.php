@@ -64,7 +64,6 @@ class Gene extends Gene_Base
      * Run application
      *
      * @access public
-     * @throws Zend_Controller_Exception
      * @return void
      */
     public static function run($appPath, array $options = array())
