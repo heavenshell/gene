@@ -157,7 +157,7 @@ class Models_Tables extends Zend_Db_Table_Abstract
      * @access public
      * @return bool true:Success to update, false:Fail to update
      */
-    public function softDeleteable(array $params)
+    public function softDeletable(array $params)
     {
         $where = $this->_db->quoteInto('id = ?', $params[$this->_primary]);
         $this->_db->beginTransaction();
