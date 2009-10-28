@@ -61,3 +61,7 @@ $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->setFallbackAutoloader(true)
            ->suppressNotFoundWarnings(false);
 
+echo 'Versions:' . PHP_EOL;
+echo '  Zend Framework ' . Zend_Version::VERSION . PHP_EOL;
+echo '  Gene ' . Gene::GENE_VERSION . PHP_EOL;
+echo PHP_EOL;
