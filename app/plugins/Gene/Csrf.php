@@ -88,9 +88,6 @@ class Plugins_Gene_Csrf extends Zend_Controller_Plugin_Abstract
     public function __construct()
     {
         $this->_session = new Zend_Session_Namespace(__CLASS__);
-
-        // Set token to session storage
-        $this->_session->token = $this->generateToken();
     }
 
     /**
@@ -103,11 +100,12 @@ class Plugins_Gene_Csrf extends Zend_Controller_Plugin_Abstract
     public function generateToken($type = 'session')
     {
         if ($type === 'session') {
+            Zend_Session::regenerateId();
             $token = sha1(Zend_Session::getId());
         } else {
             $token = sha1(uniqid(mt_rand(), true));
         }
-
+        $this->_session->token = $token;
         return $token;
     }
 
