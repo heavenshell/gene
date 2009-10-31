@@ -313,7 +313,7 @@ class Gene_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $path   = $this->_configPath . 'routing.ini';
         $config = Gene_Config::load($path, $this->_cache);
-        if (is_null($config)) {
+        if (is_null($config->routes)) {
             return $this;
         }
         $router = new Gene_Application_Setting_Routing($config->routes);
