@@ -61,7 +61,7 @@ class Gene_Cache_File extends Gene_Cache_Abstract
      * @var    mixed
      * @access private
      */
-    private $_cache = null;
+    private static $_cache = null;
 
     /**
      * Path to app direcotry
@@ -264,9 +264,9 @@ class Gene_Cache_File extends Gene_Cache_Abstract
         }
 
         $serial = sha1(serialize($masterpath));
-        if (isset($this->_cache[$name][$serial])
-                && !is_null($this->_cache[$name][$serial])) {
-            return $this->_cache[$name][$serial];
+        if (isset(self::$_cache[$name][$serial])
+                && !is_null(self::$_cache[$name][$serial])) {
+            return self::$_cache[$name][$serial];
         }
 
         $cachesPath = rtrim($this->getCachePath(), '\//') . DIRECTORY_SEPARATOR
@@ -291,7 +291,7 @@ class Gene_Cache_File extends Gene_Cache_Abstract
         $cache = Zend_Cache::factory('File', 'File', $front, $back);
 
         // Add to instance property.
-        $this->_cache[$name][$serial] = $cache;
+        self::$_cache[$name][$serial] = $cache;
 
         return $cache;
     }
