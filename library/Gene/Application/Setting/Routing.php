@@ -113,7 +113,7 @@ class Gene_Application_Setting_Routing extends Gene_Application_Setting_Abstract
         }
 
         if (is_null($config)) {
-            throw new Gene_Application_Setting_Exception('Routing not found.');
+            return;
         }
 
         $router->addConfig($config);
