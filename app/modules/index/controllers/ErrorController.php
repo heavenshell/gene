@@ -53,7 +53,7 @@
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
-class ErrorController extends Zend_Controller_Action_Abstract
+class ErrorController extends Zend_Controller_Action
 {
     /**
      * errorAction
@@ -74,76 +74,50 @@ class ErrorController extends Zend_Controller_Action_Abstract
                 break;
 
             default:
-//                $this->getResponse()->clearBody();
-//                $exception = $handler->exception;
-//                $error            = array();
-//                $error['message'] = $exception->getMessage();
-//                $error['code']    = $exception->getCode();
-//                $error['file']    = $exception->getFile();
-//                $error['line']    = $exception->getLine();
-//                $errors           = $exception->getTrace();
-//                $traceArray       = array();
-//                if (is_array($errors)) {
-//                    foreach ($errors as $key => $val) {
-//                        $traceArray[$key]['file']     = $val['file'];
-//                        $traceArray[$key]['line']     = $val['line'];
-//                        $traceArray[$key]['class']    = $val['class'];
-//                        $traceArray[$key]['type']     = $val['type'];
-//                        $traceArray[$key]['function'] = $val['function'];
-//                    }
-//                }
-//                if (strtolower($this->_config['envMode']) === 'debug') {
-//                    $this->view->assign('traces', $traceArray);
-//                } else {
-//                    // Write to log
-//                    // Todo:Filtering logs
-//                    $logPath = $this->_configs['logDir'];
-//                    if (is_dir($logPath) && is_writable($logPath)) {
-//                        $writer = new Zend_Log_Writer_Stream($logPath);
-//                        $logger = new Zend_Log($writer);
-//
-//                        // Convert array to string format
-//                        $errorMessage = print_r($error, true);
-//                        $logger->log($errorMessage, Zend_Log::ERR);
-//                        $traceMessage = print_r($traceArray, true);
-//                        $logger->log($traceMessage, Zend_Log::ERR);
-//
-//                        // Dispose logger instance
-//                        $logger = null;
-//                    }
-//                }
-//                $this->view->assign('traces', $traceArray);
                 break;
         }
-        $this->getResponse()->clearBody();
+        $this->_traceback($handler);
+        $this->view->assign('errors', $error);
+    }
+
+    /**
+     * Traceback
+     *
+     * @param  ArrayObject $handler
+     * @access private
+     * @return ErrorController Fluent interface
+     */
+    private function _traceback(ArrayObject $handler)
+    {
+        $env       = $this->getInvokeArg('bootstrap')->getEnvironment();
         $exception = $handler->exception;
-        $error            = array();
-        $error['message'] = $exception->getMessage();
-        $error['code']    = $exception->getCode();
-        $error['file']    = $exception->getFile();
-        $error['line']    = $exception->getLine();
-        $errors           = $exception->getTrace();
-        $traceArray       = array();
+        $error     = array(
+            'message' => $exception->getMessage(),
+            'code'    => $exception->getCode(),
+            'file'    => $exception->getFile(),
+            'line'    => $exception->getLine()
+        );
+        $errors     = $exception->getTrace();
+        $traceArray = array();
         if (is_array($errors)) {
             foreach ($errors as $key => $val) {
-                if (isset($val['file'])) {
-                    $traceArray[$key]['file'] = $val['file'];
-                }
-                if (isset($val['line'])) {
-                    $traceArray[$key]['line'] = $val['line'];
-                }
-                if (isset($val['class'])) {
-                    $traceArray[$key]['class'] = $val['class'];
-                }
-                if (isset($val['type'])) {
-                    $traceArray[$key]['type']     = $val['type'];
-                }
-                if (isset($val['function'])) {
-                    $traceArray[$key]['function'] = $val['function'];
-                }
+                $traceArray[$key]['file']     = $val['file'];
+                $traceArray[$key]['line']     = $val['line'];
+                $traceArray[$key]['class']    = $val['class'];
+                $traceArray[$key]['type']     = $val['type'];
+                $traceArray[$key]['function'] = $val['function'];
             }
         }
-        $this->view->assign('traces', $traceArray);
-        $this->view->assign('errors', $error);
+
+        if (strtolower($env) === 'production') {
+            // Convert array to string format
+            $errorMessage = print_r($error, true);
+            $traceMessage = print_r($traceArray, true);
+            $log = Gene::getParams('log');
+            $log->write($errorMessage)->write($traceMessage);
+        } else {
+            $this->view->assign('traces', $traceArray);
+        }
+        return $this;
     }
 }
