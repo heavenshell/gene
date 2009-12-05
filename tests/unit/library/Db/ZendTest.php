@@ -139,4 +139,13 @@ class Gene_Db_Setting_Zendの動作Test extends PHPUnit_Framework_TestCase
             $dbConfig['dbname']
         );
     }
+
+    public function testデータベースアダプターを取得できる()
+    {
+        $iniPath = GENE_TEST_ROOT . '/var/config/database.ini';
+        $config  = Gene_Config::load($iniPath);
+        $db      = new Gene_Db_Setting_Zend($config->production);
+        $adapter = $db->load()->getDbAdapter();
+        $this->assertTrue($adapter instanceof Zend_Db_Adapter_Pdo_Mysql);
+    }
 }
