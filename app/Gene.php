@@ -68,6 +68,6 @@ class Gene extends Gene_Base
      */
     public static function run($appPath, array $options = array())
     {
-        Gene_Base::run($appPath, $options);
+        return Gene_Base::run($appPath, $options);
     }
 }

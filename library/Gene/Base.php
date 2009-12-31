@@ -180,6 +180,6 @@ class Gene_Base
      */
     public static function run($appPath, array $options = array())
     {
-        self::app($appPath, $options)->run();
+        return self::app($appPath, $options)->run();
     }
 }
