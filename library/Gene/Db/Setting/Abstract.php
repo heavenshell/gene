@@ -71,9 +71,20 @@ abstract class Gene_Db_Setting_Abstract
      */
     public function __construct($config = null)
     {
+        $this->init();
         if (!is_null($config)) {
             $this->setConfig($config);
         }
+    }
+
+    /**
+     * init
+     *
+     * @access public
+     * @return void
+     */
+    public function init()
+    {
     }
 
     /**
