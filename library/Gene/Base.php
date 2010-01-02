@@ -58,7 +58,7 @@ class Gene_Base
     /**
      * Gene Version
      */
-    const GENE_VERSION = '0.2';
+    const GENE_VERSION = '0.3';
 
     /**
      * Loaded class's instance
