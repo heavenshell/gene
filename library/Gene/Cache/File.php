@@ -232,6 +232,9 @@ class Gene_Cache_File extends Gene_Cache_Abstract
             if ($val->isFile()) {
                 $name      = $val->getPathname();
                 $pathArray = pathinfo($name);
+                if (!isset($pathArray['extension'])) {
+                    continue;
+                }
                 $extension = strtolower($pathArray['extension']);
                 if (!in_array($extension, $extensions)) {
                     continue;
