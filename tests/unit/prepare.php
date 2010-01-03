@@ -52,7 +52,7 @@ set_include_path(get_include_path()
 );
 error_reporting(E_ALL | E_STRICT);
 defined('GENE_ROOT_PATH') || define('GENE_ROOT_PATH', $rootPath);
-defined('GENE_LIB_PATH') || define('GENE_LIB_PATH', $libPath);
+defined('GENE_LIB_PATH') || define('GENE_LIB_PATH', $libPath . '/Gene');
 defined('GENE_APP_PATH') || define('GENE_APP_PATH', $appPath);
 defined('GENE_TEST_ROOT') || define('GENE_TEST_ROOT', dirname(__FILE__));
 
