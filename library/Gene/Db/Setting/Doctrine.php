@@ -129,10 +129,7 @@ class Gene_Db_Setting_Doctrine extends Gene_Db_Setting_Abstract
     {
         $manager = Doctrine_Manager::getInstance();
         foreach ($params as $key => $val) {
-            $manager->setAttribute(
-                $key,
-                $val
-            );
+            $manager->setAttribute($key, $val);
         }
         return $this;
     }
@@ -142,16 +139,21 @@ class Gene_Db_Setting_Doctrine extends Gene_Db_Setting_Abstract
      *
      * @param  mixed $config Database settings
      * @access public
+     * @throws Gene_Db_Exception $config is not instanceof Zend_Config or array
      * @return Gene_Db_Setting_Abstract Fluent interface
      */
     public function setConfig($config)
     {
         if ($config instanceof Zend_Config) {
             $this->_config   = $config->database->toArray();
-            $this->_doctrine = $config->doctrine->toArray();
+            if (isset($config->doctrine)) {
+                $this->_doctrine = $config->doctrine->toArray();
+            }
         } else if (is_array($config)) {
             $this->_config   = $config['database'];
-            $this->_doctrine = $config['doctrine'];
+            if (isset($config['doctrine'])) {
+                $this->_doctrine = $config['doctrine'];
+            }
         } else {
             throw new Gene_Db_Exception('Config setting is invalid.');
         }
@@ -162,7 +164,7 @@ class Gene_Db_Setting_Doctrine extends Gene_Db_Setting_Abstract
     /**
      * Load config
      *
-     * @param  mixed $dbConfig
+     * @param  mixed $config Database config
      * @access public
      * @throws Gene_Db_Exception
      * @return Gene_Db_Setting_Doctrine Fluent interface
@@ -172,7 +174,6 @@ class Gene_Db_Setting_Doctrine extends Gene_Db_Setting_Abstract
         if (is_null($config)) {
             $config = $this->_config;
         }
-
         foreach ($config as $key => $val) {
             if (isset($val['adapter']) && isset($val['params'])) {
                 $params = $val['params'];
@@ -184,7 +185,6 @@ class Gene_Db_Setting_Doctrine extends Gene_Db_Setting_Abstract
                     $params['host'],
                     $params['dbname']
                 );
-
                 $this->_db[$key] = Doctrine_Manager::connection($dsn, $params['dbname']);
             } else {
                 throw new Gene_Db_Exception('Config setting is invalid.');
@@ -201,6 +201,7 @@ class Gene_Db_Setting_Doctrine extends Gene_Db_Setting_Abstract
      *
      * @param  mixed $key Database name
      * @access public
+     * @throws Gene_Db_Exception Could not load database adapter
      * @return mixed Imprements of Doctrine_Db_Adapter_Abstract
      */
     public function getDbAdapter($key = null)

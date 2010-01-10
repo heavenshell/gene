@@ -112,8 +112,8 @@ class Gene_Db_Setting_Doctrineの動作Test extends PHPUnit_Framework_TestCase
     public function test配列とzend_config以外を設定した場合例外が発生する()
     {
         try {
-            $db      = new Gene_Db_Setting_Doctrine('hoge');
-            $adapter = $db->load();
+            $db = new Gene_Db_Setting_Doctrine('hoge');
+            $db->load();
         } catch (Gene_Db_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Config setting is invalid.');
             return;
