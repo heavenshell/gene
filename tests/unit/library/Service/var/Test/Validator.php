@@ -1,5 +1,5 @@
 <?php
-class Test_Validator extends Gene_Service_Validator
+class Test_Service_Validator extends Gene_Service_Validator
 {
     protected function _setDefaultRules($session = null, $adapter = null)
     {

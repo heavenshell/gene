@@ -67,8 +67,8 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
 
     public function testVaidatorインスタンスを生成できる()
     {
-        $instance = new Test_Validator();
-        $this->assertTrue($instance instanceof Test_Validator);
+        $instance = new Test_Service_Validator();
+        $this->assertTrue($instance instanceof Test_Service_Validator);
     }
 
     public function test値が正しい場合trueを応答する()
@@ -76,7 +76,7 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         $data = array(
             'test1' => 'abcdefg'
         );
-        $validator = new Test_Validator();
+        $validator = new Test_Service_Validator();
         $valid     = $validator->isValid($data);
         $messages  = $validator->getErrorMessages();
         $this->assertTrue($valid);
@@ -87,7 +87,7 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         $data = array(
             'test1' => '!"#$%&'
         );
-        $validator = new Test_Validator();
+        $validator = new Test_Service_Validator();
         $valid     = $validator->isValid($data);
         $messages  = $validator->getErrorMessages();
         $this->assertFalse($valid);
@@ -98,7 +98,7 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         $data = array(
             'test1' => '!"#$%&'
         );
-        $validator = new Test_Validator();
+        $validator = new Test_Service_Validator();
         $valid     = $validator->isValid($data);
         $messages  = $validator->getErrorMessages();
         $this->assertFalse($valid);
@@ -119,7 +119,7 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         $data = array(
             'test1' => '!"#$%&'
         );
-        $validator = new Test_Validator();
+        $validator = new Test_Service_Validator();
         $valid     = $validator->setRequest($data)->isValid();
         $messages  = $validator->getErrorMessages();
         $this->assertFalse($valid);
@@ -141,7 +141,7 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
             'test1' => '!"#$%&'
         );
 
-        $validator = new Test_Validator();
+        $validator = new Test_Service_Validator();
         $translate = $validator->setAppPath(GENE_APP_PATH)
                                ->getTranslate('validate.ini');
         $valid     = $validator->setValidatorTranslate($translate)

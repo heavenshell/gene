@@ -1,5 +1,5 @@
 <?php
-class Test_AbstractMock extends Gene_Service_Abstract
+class Test_Service_AbstractMock extends Gene_Service_Abstract
 {
     public $init = false;
 

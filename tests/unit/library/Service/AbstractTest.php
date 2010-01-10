@@ -73,46 +73,46 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
 
     public function testインスタンスを生成できる()
     {
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $this->assertTrue($instance instanceof Gene_Service_Abstract);
     }
 
     public function testインスタンス生成時にinitメソッドが実行する()
     {
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $this->assertTrue($instance->init);
     }
 
     public function testインスタンス生成時にApplicationPathを設定できる()
     {
-        $instance = new Test_AbstractMock(array('appPath' => GENE_APP_PATH));
+        $instance = new Test_Service_AbstractMock(array('appPath' => GENE_APP_PATH));
         $this->assertSame($instance->getAppPath(), GENE_APP_PATH);
     }
 
     public function testApplicationPathを設定できる()
     {
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $instance->setAppPath(GENE_APP_PATH);
         $this->assertSame($instance->getAppPath(), GENE_APP_PATH);
     }
 
     public function testApplicationPathを設定していない場合nullを応答する()
     {
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $this->assertSame($instance->getAppPath(), null);
     }
 
     public function testTranslatePathを設定できる()
     {
         $path     = GENE_TEST_ROOT . '/var/locales';
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $instance->setTranslatePath($path);
         $this->assertSame($instance->getTranslatePath(), $path);
     }
 
     public function testTranslatePathが設定されていない場合デフォルトのパスを応答する()
     {
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $instance->setAppPath(GENE_APP_PATH);
 
         $path = GENE_APP_PATH . '/locales/';
@@ -122,7 +122,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
     public function testCacheオブジェクトを取得できる()
     {
         $appPath  = GENE_TEST_ROOT . '/var';
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $instance->setAppPath($appPath);
         $cache = $instance->getCacheFileObject($appPath);
         $this->assertTrue($cache instanceof Zend_Cache_Frontend_File);
@@ -132,7 +132,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
     {
         $path     = GENE_TEST_ROOT . '/var/locales/';
         $appPath  = GENE_TEST_ROOT . '/var';
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $instance->setAppPath($appPath)->setTranslatePath($path);
         $translate = $instance->getTranslate('message.ini');
         $this->assertTrue($translate instanceof Zend_Translate);
@@ -142,7 +142,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
     {
         $path     = GENE_TEST_ROOT . '/var/locales/';
         $appPath  = GENE_TEST_ROOT . '/var';
-        $instance = new Test_AbstractMock();
+        $instance = new Test_Service_AbstractMock();
         $instance->setAppPath($appPath)->setTranslatePath($path);
         $translate = $instance->getTranslate('message');
         $this->assertTrue($translate instanceof Zend_Translate);
