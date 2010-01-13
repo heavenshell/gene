@@ -124,7 +124,7 @@ abstract class Gene_Service_Validator extends Gene_Service_Abstract
      * @access protected
      * @return mixed Validation rules
      */
-    abstract protected function _setDefaultRules($session = null, $adapter = null);
+    abstract public function setRules($session = null, $id = null, $adapter = null);
 
     /**
      * Set filters
@@ -178,7 +178,7 @@ abstract class Gene_Service_Validator extends Gene_Service_Abstract
 
         if (is_null($this->_rules)) {
             // Set validation rules, which is defined in sub class.
-            $this->_setDefaultRules();
+            $this->setRules();
         }
         $this->_validator = new Zend_Filter_Input($this->_filters, $this->_rules);
 
