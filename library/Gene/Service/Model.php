@@ -53,7 +53,7 @@
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
-class Gene_Service_Model extends Gene_Services_Abstract
+class Gene_Service_Model extends Gene_Service_Abstract
 {
     /**
      * Instance of model class
