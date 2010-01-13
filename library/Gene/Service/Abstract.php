@@ -144,7 +144,7 @@ abstract class Gene_Service_Abstract implements Gene_Service_Interface
         if (is_null($this->_translatePath)) {
             if (!is_null($this->getAppPath())) {
                 $path = rtrim($this->getAppPath(), '\//') . DIRECTORY_SEPARATOR
-                    . 'locales' . DIRECTORY_SEPARATOR;
+                      . 'locales' . DIRECTORY_SEPARATOR;
 
                 return $path;
             }
@@ -171,6 +171,19 @@ abstract class Gene_Service_Abstract implements Gene_Service_Interface
 
         $cache = $instance->setFrontend($frontend)->getCache($name);
         return $cache;
+    }
+
+    /**
+     * Set translate object
+     *
+     * @param  mixed $value
+     * @access public
+     * @return Gene_Service_Abstract Fluent interface
+     */
+    public function setTranslate($value)
+    {
+        $this->_translate = $value;
+        return $this;
     }
 
     /**
