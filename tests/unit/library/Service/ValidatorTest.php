@@ -100,7 +100,7 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         );
 
         $validator = new Test_Service_Validator();
-        $translate = $validator->setAppPath(GENE_APP_PATH)
+        $translate = $validator->setAppPath(GENE_TEST_ROOT . '/var/')
                                ->getTranslate('validate.ini');
         $valid     = $validator->setValidatorTranslate($translate)
                                ->isValid($data);
@@ -139,7 +139,7 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         );
 
         $validator = new Test_Service_Validator();
-        $translate = $validator->setAppPath(GENE_APP_PATH)
+        $translate = $validator->setAppPath(GENE_TEST_ROOT . '/var/')
                                ->getTranslate('validate.ini');
         $valid     = $validator->setValidatorTranslate($translate)
                                ->isValid($data);
