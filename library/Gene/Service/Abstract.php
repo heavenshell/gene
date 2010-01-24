@@ -80,6 +80,14 @@ abstract class Gene_Service_Abstract implements Gene_Service_Interface
     protected $_appPath = null;
 
     /**
+     * Message(s)
+     *
+     * @var    mixed
+     * @access protected
+     */
+    protected $_messages = null;
+
+    /**
      * Translate
      *
      * @var    mixed
@@ -117,6 +125,30 @@ abstract class Gene_Service_Abstract implements Gene_Service_Interface
     public function getAppPath()
     {
         return $this->_args['appPath'];
+    }
+
+    /**
+     * Set message
+     *
+     * @param  mixed $value
+     * @access public
+     * @return Gene_Service_Abstract Fluent interface
+     */
+    public function setMessages($value)
+    {
+        $this->messages = $value;
+        return $this;
+    }
+
+    /**
+     * Get message
+     *
+     * @access public
+     * @return mixed Message
+     */
+    public function getMessages()
+    {
+        return $this->_messages;
     }
 
     /**
