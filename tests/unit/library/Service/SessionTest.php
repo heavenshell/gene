@@ -80,16 +80,9 @@ class Gene_Service_Session動作Test extends PHPUnit_Framework_TestCase
         $this->assertTrue($instance instanceof Gene_Service_Session);
     }
 
-    public function testSessionの名前空間が設定されていない場合nullを応答する()
-    {
-        $namespace = 'namespace1';
-        $instance  = Gene::load('Gene_Service_Session');
-        $this->assertSame($instance->getNamespace(), null);
-    }
-
     public function testSessionの名前空間を設定できる()
     {
-        $namespace = 'namespace2';
+        $namespace = 'namespace1';
         $instance  = Gene::load('Gene_Service_Session');
         $instance->setNamespace($namespace);
         $this->assertSame($instance->getNamespace(), $namespace);
@@ -97,7 +90,7 @@ class Gene_Service_Session動作Test extends PHPUnit_Framework_TestCase
 
     public function testSessionの名前空間を取得できる()
     {
-        $namespace = 'namespace3';
+        $namespace = 'namespace2';
         $instance  = Gene::load('Gene_Service_Session');
         $instance->setNamespace($namespace);
         $this->assertSame($instance->getNamespace(), $namespace);

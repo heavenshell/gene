@@ -98,9 +98,15 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         $data = array(
             'test1' => '!"#$%&'
         );
+
         $validator = new Test_Service_Validator();
-        $valid     = $validator->isValid($data);
-        $messages  = $validator->getErrorMessages();
+        $translate = $validator->setAppPath(GENE_APP_PATH)
+                               ->getTranslate('validate.ini');
+        $valid     = $validator->setValidatorTranslate($translate)
+                               ->isValid($data);
+
+        $messages = $validator->getErrorMessages();
+        $expects  = $translate->getAdapter()->getMessages();
         $this->assertFalse($valid);
 
         $alnum    = new Zend_Validate_Alnum();
@@ -109,7 +115,7 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         $expect   = str_replace(
             '%value%',
             $data['test1'],
-            $template[Zend_Validate_Alnum::NOT_ALNUM]
+            $expects[$template[Zend_Validate_Alnum::NOT_ALNUM]]
         );
         $this->assertSame($expect, $messages[0]);
     }
@@ -124,15 +130,6 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         $messages  = $validator->getErrorMessages();
         $this->assertFalse($valid);
 
-        $alnum    = new Zend_Validate_Alnum();
-        $template = $alnum->getMessageTemplates();
-
-        $expect   = str_replace(
-            '%value%',
-            $data['test1'],
-            $template[Zend_Validate_Alnum::NOT_ALNUM]
-        );
-        $this->assertSame($expect, $messages[0]);
     }
 
     public function test翻訳ファイルをvalidatorに設定できる()

@@ -121,7 +121,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
 
     public function testCacheオブジェクトを取得できる()
     {
-        $appPath  = GENE_TEST_ROOT . '/var';
+        $appPath  = GENE_TEST_ROOT . '/';
         $instance = new Test_Service_AbstractMock();
         $instance->setAppPath($appPath);
         $cache = $instance->getCacheFileObject($appPath);
@@ -131,7 +131,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
     public function testTranslateオブジェクトを取得できる()
     {
         $path     = GENE_TEST_ROOT . '/var/locales/';
-        $appPath  = GENE_TEST_ROOT . '/var';
+        $appPath  = GENE_TEST_ROOT . '/';
         $instance = new Test_Service_AbstractMock();
         $instance->setAppPath($appPath)->setTranslatePath($path);
         $translate = $instance->getTranslate('message.ini');
