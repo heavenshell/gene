@@ -66,3 +66,17 @@ echo '  PHP ' . phpversion() . PHP_EOL;
 echo '  Zend Framework ' . Zend_Version::VERSION . PHP_EOL;
 echo '  Gene ' . Gene::GENE_VERSION . PHP_EOL;
 echo PHP_EOL;
+
+
+class Gene_Test_Init
+{
+    public static $adapter = null;
+    public static function trancate($ini, $sql, $section = 'testing', $key = 'default')
+    {
+        $config  = Gene_Config::load($ini);
+        $db      = new Gene_Db_Setting_Zend($config->{$section});
+        $adapter = $db->load()->getDbAdapter($key);
+        self::$adapter = $adapter;
+        $adapter->query(file_get_contents($sql));
+    }
+}

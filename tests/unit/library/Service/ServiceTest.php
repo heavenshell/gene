@@ -74,14 +74,15 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
         require_once 'var/Test/BeforeHookMock.php';
         require_once 'var/Test/AfterHookMock.php';
         require_once 'var/Test/Validator.php';
-        $adapter = Gene::getParams('adapter')->getDbAdapter('default');
+
+        $iniPath = GENE_TEST_ROOT . '/var/config/database.ini';
         $file    = GENE_TEST_ROOT . '/var/sql/create.sql';
-        $ret     = $adapter->query(file_get_contents($file));
+        Gene_Test_Init::trancate($iniPath, $file, 'production');
     }
 
     public function tearDown()
     {
-        $adapter = Gene::getParams('adapter')->getDbAdapter('default');
+        $adapter = Gene_Test_Init::$adapter;
         $adapter->closeConnection();
     }
 

@@ -70,9 +70,9 @@ class Gene_Service_Model動作Test extends PHPUnit_Framework_TestCase
         Gene::app($path, $options);
 
         require_once 'var/Test/Zend.php';
-        $adapter = Gene::getParams('adapter')->getDbAdapter('default');
+        $iniPath = GENE_TEST_ROOT . '/var/config/database.ini';
         $file    = GENE_TEST_ROOT . '/var/sql/create.sql';
-        $ret     = $adapter->query(file_get_contents($file));
+        Gene_Test_Init::trancate($iniPath, $file, 'production');
     }
 
     public function tearDown()
