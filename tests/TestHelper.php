@@ -1,6 +1,6 @@
 <?php
 /**
- * Gene
+ * Gene_TestHelper
  *
  * PHP version 5.2
  *
@@ -36,35 +36,57 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Gene
- * @packagea  Gene
+ * @package   Gene_TestHelper
  * @version   $id$
  * @copyright 2009-2010 Shinya Ohyanagi
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
 
-$rootPath = dirname(dirname(dirname(__FILE__)));
-$libPath  = $rootPath . DIRECTORY_SEPARATOR . 'library';
-$appPath  = $rootPath . DIRECTORY_SEPARATOR . 'app';
-set_include_path(get_include_path()
-    . PATH_SEPARATOR . $libPath
-    . PATH_SEPARATOR . $appPath
-);
-error_reporting(E_ALL | E_STRICT);
-defined('GENE_ROOT_PATH') || define('GENE_ROOT_PATH', $rootPath);
-defined('GENE_LIB_PATH') || define('GENE_LIB_PATH', $libPath . DIRECTORY_SEPARATOR . 'Gene');
-defined('GENE_APP_PATH') || define('GENE_APP_PATH', $appPath);
-defined('GENE_TEST_ROOT') || define('GENE_TEST_ROOT', dirname(__FILE__));
+/**
+ * Gene_TestHelper
+ *
+ * @category  Gene
+ * @package   Gene_Tests_Helper
+ * @version   $id$
+ * @copyright 2009-2010 Shinya Ohyanagi
+ * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
+ * @license   New BSD License
+ */
+class Gene_TestHelper
+{
+    /**
+     * Db adapter
+     */
+    private static $_adapter = null;
 
-require_once 'Zend/Loader/Autoloader.php';
-$autoloader = Zend_Loader_Autoloader::getInstance();
-$autoloader->setFallbackAutoloader(true)
-           ->suppressNotFoundWarnings(false);
+    /**
+     * Get db adapter
+     *
+     * @access public
+     * @return mixed
+     */
+    public static function getDbAdapter()
+    {
+        return self::$_adapter;
+    }
 
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'TestHelper.php';
-
-echo 'Versions:' . PHP_EOL;
-echo '  PHP ' . phpversion() . PHP_EOL;
-echo '  Zend Framework ' . Zend_Version::VERSION . PHP_EOL;
-echo '  Gene ' . Gene::GENE_VERSION . PHP_EOL;
-echo PHP_EOL;
+    /**
+     * trancate
+     *
+     * @param  mixed $ini
+     * @param  mixed $sql
+     * @param  string $section
+     * @param  string $key
+     * @access public
+     * @return void
+     */
+    public static function trancate($ini, $sql, $section = 'testing', $key = 'default')
+    {
+        $config  = Gene_Config::load($ini);
+        $db      = new Gene_Db_Setting_Zend($config->{$section});
+        $adapter = $db->load()->getDbAdapter($key);
+        self::$_adapter = $adapter;
+        $adapter->query(file_get_contents($sql));
+    }
+}

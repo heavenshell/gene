@@ -77,12 +77,12 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
 
         $iniPath = GENE_TEST_ROOT . '/var/config/database.ini';
         $file    = GENE_TEST_ROOT . '/var/sql/create.sql';
-        Gene_Test_Init::trancate($iniPath, $file, 'production');
+        Gene_TestHelper::trancate($iniPath, $file, 'production');
     }
 
     public function tearDown()
     {
-        $adapter = Gene_Test_Init::$adapter;
+        $adapter = Gene_TestHelper::getDbAdapter();
         $adapter->closeConnection();
     }
 
