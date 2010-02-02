@@ -62,17 +62,17 @@ class Gene_Service_Model動作Test extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        require_once 'var/Test/Zend.php';
+        $iniPath = GENE_TEST_ROOT . '/var/config/database.ini';
+        $file    = GENE_TEST_ROOT . '/var/sql/create.sql';
+        Gene_TestHelper::trancate($iniPath, $file, 'production');
+
         $options = array(
             'env'      => 'testing',
             'resource' => array('Cache', 'Config', 'Path', 'Db')
         );
         $path = GENE_APP_PATH;
         Gene::app($path, $options);
-
-        require_once 'var/Test/Zend.php';
-        $iniPath = GENE_TEST_ROOT . '/var/config/database.ini';
-        $file    = GENE_TEST_ROOT . '/var/sql/create.sql';
-        Gene_TestHelper::trancate($iniPath, $file, 'production');
     }
 
     public function tearDown()

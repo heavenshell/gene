@@ -62,14 +62,6 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $options = array(
-            'env'      => 'testing',
-            'resource' => array('Cache', 'Config', 'Path', 'Db')
-        );
-        $path = GENE_APP_PATH;
-        Gene::app($path, $options);
-        Zend_Session::$_unitTestEnabled = true;
-
         require_once 'var/Test/ServiceMock.php';
         require_once 'var/Test/BeforeHookMock.php';
         require_once 'var/Test/AfterHookMock.php';
@@ -78,6 +70,14 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
         $iniPath = GENE_TEST_ROOT . '/var/config/database.ini';
         $file    = GENE_TEST_ROOT . '/var/sql/create.sql';
         Gene_TestHelper::trancate($iniPath, $file, 'production');
+
+        $options = array(
+            'env'      => 'testing',
+            'resource' => array('Cache', 'Config', 'Path', 'Db')
+        );
+        $path = GENE_APP_PATH;
+        Gene::app($path, $options);
+        Zend_Session::$_unitTestEnabled = true;
     }
 
     public function tearDown()
