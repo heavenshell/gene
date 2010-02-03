@@ -94,7 +94,7 @@ class Gene_Service_Model動作Test extends PHPUnit_Framework_TestCase
     {
         $instance = Gene::load('Gene_Service_Model');
         $model    = $instance->getDao('Test_Service_Zend');
-        $this->assertTrue($instance->getDbAdapter() instanceof Zend_Db_Adapter_Pdo_Mysql);
+        $this->assertTrue($model->getAdapter() instanceof Zend_Db_Adapter_Pdo_Mysql);
     }
 
     public function testDbadpterを設定できる()
