@@ -287,26 +287,6 @@ class Gene_Service extends Gene_Service_Model
     }
 
     /**
-     * List data
-     *
-     * @access public
-     * @return void
-     */
-    public function index()
-    {
-    }
-
-    /**
-     * Show one data
-     *
-     * @access public
-     * @return void
-     */
-    public function show()
-    {
-    }
-
-    /**
      * Input form data
      *
      * @access public
