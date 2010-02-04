@@ -83,10 +83,17 @@ class Gene_TestHelper
      */
     public static function trancate($ini, $sql, $section = 'testing', $key = 'default')
     {
-        $config  = Gene_Config::load($ini);
-        $db      = new Gene_Db_Setting_Zend($config->{$section});
+        $config  = Gene_Config::load($ini)->{$section};
+        $name    = $config->setting->className;
+        if ($name !== 'Gene_Db_Setting_Zend') {
+            if ($config->database->default->adapter !== 'Pdo_Mysql') {
+                $config = $config->database->toArray();
+                $config['default']['adapter'] = 'Pdo_Mysql';
+            }
+        }
+        $db      = new Gene_Db_Setting_Zend($config);
         $adapter = $db->load()->getDbAdapter($key);
-        $adapter->query(file_get_contents($sql));
+        $result  = $adapter->query(file_get_contents($sql));
         self::$_adapter = $adapter;
     }
 }
