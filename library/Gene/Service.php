@@ -112,10 +112,10 @@ class Gene_Service extends Gene_Service_Model
     /**
      * Get validator
      *
-     * @param  mixed  $name Validator class name
+     * @param  mixed $name Validator class name
      * @param  string $appmessage Application message file name
      * @access public
-     * @return void
+     * @return mixed Validation class
      */
     public function getValidator($name, $appmessage = 'message.ini')
     {
