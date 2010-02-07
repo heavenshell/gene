@@ -110,6 +110,57 @@ class Gene_Service extends Gene_Service_Model
     );
 
     /**
+     * Run method
+     *
+     * <pre>
+     *   This is a simple aop implemention.
+     *   There are three advice method.
+     *   1. before : Run before given method
+     *   2. after  : Run after given method
+     *   3. around : Override given method
+     * </pre>
+     *
+     * @param  mixed $method Method name
+     * @param  array $args Arguments to set method
+     * @access public
+     * @return mixed Execution of method
+     */
+    public function run($method, array $args = array())
+    {
+        $name = ucfirst($method);
+        if (method_exists($this, 'before' . $name)) {
+            $this->_before[$method] = 'before' . $name;
+            $this->_before($method);
+        }
+
+        $around = false;
+        if (method_exists($this, 'around' . $name)) {
+            // If around + $method exists, override $method by aroud + $method.
+            $around  = true;
+            $default = $method;
+            $method  = 'around' . $name;
+        }
+
+        $ret = null;
+        if (count($args) > 0) {
+            $ret = call_user_func_array(array($this, $method), $args);
+        } else {
+            $ret = $this->$method();
+        }
+
+        if ($around === true) {
+            $method = $default;
+        }
+
+        if (method_exists($this, 'after' . $name)) {
+            $this->_after[$method] = 'after' . $name;
+            $this->_after($method);
+        }
+
+        return $ret;
+    }
+
+    /**
      * Get validator
      *
      * @param  mixed $name Validator class name

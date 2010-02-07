@@ -726,4 +726,56 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
         ob_end_clean();
         $this->assertSame($buffer, 'Test_Foo::barTest_Foo::bazTest_Foo::baz');
     }
+
+    public function testbefore修飾子があるメソッドが実行前に動作する()
+    {
+        require_once 'var/Test/Aop.php';
+        $service = Gene::load('Test_BeforeFoo');
+        ob_start();
+        $service->run('foo');
+        $buffer  = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'beforeFoofoo');
+
+        ob_start();
+        $service->run('bar', array('foo'));
+        $buffer  = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'beforeBarfoobar');
+    }
+
+    public function testafter修飾子があるメソッドが実行後に動作する()
+    {
+        require_once 'var/Test/Aop.php';
+        $service = Gene::load('Test_AfterFoo');
+        ob_start();
+        $service->run('foo');
+        $buffer  = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'fooafterFoo');
+
+        ob_start();
+        $service->run('bar', array('foo'));
+        $buffer  = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'foobarafterBar');
+
+    }
+
+    public function testaround修飾子があるメソッドが実行メソッドを上書きする()
+    {
+        require_once 'var/Test/Aop.php';
+        $service = Gene::load('Test_AroundFoo');
+        ob_start();
+        $service->run('foo');
+        $buffer  = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'aroundFoo');
+
+        ob_start();
+        $service->run('bar', array('foo'));
+        $buffer  = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'fooaroundBar');
+    }
 }
