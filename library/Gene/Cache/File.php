@@ -219,7 +219,7 @@ class Gene_Cache_File extends Gene_Cache_Abstract
      * @access public
      * @return mixed Path to master files
      */
-    public function directorySearch($path = null, array $extensions = array('ini', 'xml', 'yaml'))
+    public function directorySearch($path = null, array $extensions = array('ini', 'xml', 'php', 'yaml', 'yml'))
     {
         if (is_null($path)) {
             $path = $this->_appPath . 'config' . DIRECTORY_SEPARATOR;
