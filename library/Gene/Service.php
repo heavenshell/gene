@@ -170,11 +170,10 @@ class Gene_Service extends Gene_Service_Model
      */
     public function getValidator($name, $appmessage = 'message.ini')
     {
-        $system = $this->getTranslate('validate.ini');
+        $system = $this->getSystemTranslate();
         $app    = $this->getTranslate($appmessage);
         $valid  = Gene::load($name);
-        $valid->setValidatorTranslate($system)->setTranslate($app);
-
+        $valid->setValidatorTranslate($system)->setAppTranslate($app);
         $this->_apptranslate = $app;
         return $valid;
     }
