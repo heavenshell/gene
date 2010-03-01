@@ -99,9 +99,10 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
             'test1' => '!"#$%&'
         );
 
+        $instance  = new Gene_Translate(GENE_APP_PATH);
+        $translate = $instance->getValidateTranslate();
+
         $validator = new Test_Service_Validator();
-        $translate = $validator->setAppPath(GENE_TEST_ROOT . '/var/')
-                               ->getTranslate('validate.ini');
         $valid     = $validator->setValidatorTranslate($translate)
                                ->isValid($data);
 
@@ -129,7 +130,6 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
         $valid     = $validator->setRequest($data)->isValid();
         $messages  = $validator->getErrorMessages();
         $this->assertFalse($valid);
-
     }
 
     public function test翻訳ファイルをvalidatorに設定できる()
@@ -138,14 +138,16 @@ class Gene_Service_Validator動作Test extends PHPUnit_Framework_TestCase
             'test1' => '!"#$%&'
         );
 
+        $instance  = new Gene_Translate(GENE_APP_PATH);
+        $translate = $instance->getValidateTranslate();
+
+
         $validator = new Test_Service_Validator();
-        $translate = $validator->setAppPath(GENE_TEST_ROOT . '/var/')
-                               ->getTranslate('validate.ini');
         $valid     = $validator->setValidatorTranslate($translate)
                                ->isValid($data);
 
-        $messages = $validator->getErrorMessages();
-        $expects  = $translate->getAdapter()->getMessages();
+        $messages  = $validator->getErrorMessages();
+        $expects   = $translate->getAdapter()->getMessages();
         $this->assertFalse($valid);
 
         $alnum    = new Zend_Validate_Alnum();

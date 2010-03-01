@@ -29,15 +29,16 @@ class Test_Service_Validator extends Gene_Service_Validator
 
     public function createRules()
     {
+        $translate = $this->_getTranslate();
         $validations = array(
             'name' => array(
                 new Zend_Validate_NotEmpty(),
                 new Zend_Validate_Regex('/^[0-9A-Za-z+\_]*$/ '),
                 new Zend_Validate_StringLength(1, 100, 'utf-8'),
                 'messages' => array(
-                    0 => $this->_translate->_('Please enter user name.'),
-                    1 => $this->_translate->_('Invalid user name.'),
-                    2 => $this->_translate->_('User name should enter less than 100.'),
+                    0 => $translate->_('Please enter user name.'),
+                    1 => $translate->_('Invalid user name.'),
+                    2 => $translate->_('User name should enter less than 100.'),
                 )
             )
         );
@@ -47,11 +48,12 @@ class Test_Service_Validator extends Gene_Service_Validator
 
     public function updateRules()
     {
+        $translate   = $this->_getTranslate();
         $validations = array(
             'id' => array(
                 new Zend_Validate_Digits(),
                 'messages' => array(
-                    0 => $this->_translate->_('Id should be a number.')
+                    0 => $translate->_('Id should be a number.')
                 )
             ),
             'name' => array(
@@ -59,9 +61,9 @@ class Test_Service_Validator extends Gene_Service_Validator
                 new Zend_Validate_Regex('/^[0-9A-Za-z+\_]*$/ '),
                 new Zend_Validate_StringLength(1, 100, 'utf-8'),
                 'messages' => array(
-                    0 => $this->_translate->_('Please enter user name.'),
-                    1 => $this->_translate->_('Invalid user name.'),
-                    2 => $this->_translate->_('User name should enter less than 100.'),
+                    0 => $translate->_('Please enter user name.'),
+                    1 => $translate->_('Invalid user name.'),
+                    2 => $translate->_('User name should enter less than 100.'),
                 )
             )
         );
@@ -75,7 +77,7 @@ class Test_Service_Validator extends Gene_Service_Validator
             'id' => array(
                 new Zend_Validate_Digits(),
                 'messages' => array(
-                    0 => $this->_translate->_('Id should be a number.')
+                    0 => $this->_getTranslate()->_('Id should be a number.')
                 )
             )
         );

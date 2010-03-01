@@ -106,8 +106,8 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
     {
         $path     = GENE_TEST_ROOT . '/var/locales';
         $instance = new Test_Service_AbstractMock();
-        $instance->setTranslatePath($path);
-        $this->assertSame($instance->getTranslatePath(), $path);
+        $instance->getTranslateObject()->setTranslatePath($path);
+        $this->assertSame($instance->getTranslateObject()->getTranslatePath(), $path);
     }
 
     public function testTranslatePathが設定されていない場合デフォルトのパスを応答する()
@@ -116,7 +116,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
         $instance->setAppPath(GENE_APP_PATH);
 
         $path = GENE_APP_PATH . '/locales/';
-        $this->assertSame($instance->getTranslatePath(), $path);
+        $this->assertSame($instance->getTranslateObject()->getTranslatePath(), $path);
     }
 
     public function testCacheオブジェクトを取得できる()
@@ -124,7 +124,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
         $appPath  = GENE_TEST_ROOT . '/';
         $instance = new Test_Service_AbstractMock();
         $instance->setAppPath($appPath);
-        $cache = $instance->getCacheFileObject($appPath);
+        $cache = $instance->getTranslateObject()->getCacheFileObject($appPath);
         $this->assertTrue($cache instanceof Zend_Cache_Frontend_File);
     }
 
@@ -133,7 +133,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
         $path     = GENE_TEST_ROOT . '/var/locales/';
         $appPath  = GENE_TEST_ROOT . '/';
         $instance = new Test_Service_AbstractMock();
-        $instance->setAppPath($appPath)->setTranslatePath($path);
+        $instance->setAppPath($appPath)->getTranslateObject()->setTranslatePath($path);
         $translate = $instance->getTranslate('message.ini');
         $this->assertTrue($translate instanceof Zend_Translate);
     }
@@ -143,7 +143,7 @@ class Gene_Service_Abstract動作Test extends PHPUnit_Framework_TestCase
         $path     = GENE_TEST_ROOT . '/var/locales/';
         $appPath  = GENE_TEST_ROOT . '/var';
         $instance = new Test_Service_AbstractMock();
-        $instance->setAppPath($appPath)->setTranslatePath($path);
+        $instance->setAppPath($appPath)->getTranslateObject()->setTranslatePath($path);
         $translate = $instance->getTranslate('message');
         $this->assertTrue($translate instanceof Zend_Translate);
     }

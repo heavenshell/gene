@@ -66,7 +66,6 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
         require_once 'var/Test/BeforeHookMock.php';
         require_once 'var/Test/AfterHookMock.php';
         require_once 'var/Test/Validator.php';
-
         $iniPath = GENE_TEST_ROOT . '/var/config/database.ini';
         $file    = GENE_TEST_ROOT . '/var/sql/create.sql';
         Gene_TestHelper::trancate($iniPath, $file, 'production');
@@ -78,6 +77,7 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
         $path = GENE_APP_PATH;
         Gene::app($path, $options);
         Zend_Session::$_unitTestEnabled = true;
+
     }
 
     public function tearDown()
@@ -125,7 +125,7 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
         $alnum     = new Zend_Validate_Alnum();
         $template  = $alnum->getMessageTemplates();
         $messages  = $valid->getErrorMessages();
-        $translate = $service->getTranslate('validate.ini');
+        $translate = $service->getSystemTranslate();
         $expects   = $translate->getAdapter()->getMessages();
         $expect    = str_replace(
             '%value%',
