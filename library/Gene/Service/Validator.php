@@ -53,7 +53,7 @@
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
-abstract class Gene_Service_Validator extends Gene_Service_Abstract
+abstract class Gene_Service_Validator
 {
     /**
      * Validator object
@@ -104,16 +104,48 @@ abstract class Gene_Service_Validator extends Gene_Service_Abstract
     protected $_validatorTranslate = null;
 
     /**
+     * Translate object for application messages
+     *
+     * @var    mixed
+     * @access protected
+     */
+    protected $_appTranslate = null;
+
+    /**
      * Set validator's default  messages
      *
      * @param  mixed $value
      * @access public
      * @return Gene_Service_Validator Fluent interface
      */
-    public function setValidatorTranslate($value)
+    public function setValidatorTranslate(Zend_Translate $value)
     {
         $this->_validatorTranslate = $value;
         return $this;
+    }
+
+    /**
+     * Set translate object for applicaton messages
+     *
+     * @param  Zend_Translate $value
+     * @access public
+     * @return Gene_Service_Validator Fluent interface
+     */
+    public function setAppTranslate(Zend_Translate $value)
+    {
+        $this->_appTranslate = $value;
+        return $this;
+    }
+
+    /**
+     * Get translate object
+     *
+     * @access protected
+     * @return Zend_Translate Translate object
+     */
+    protected function _getTranslate()
+    {
+        return $this->_appTranslate;
     }
 
     /**
