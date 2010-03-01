@@ -1,0 +1,1 @@
+/Volumes/Data1/github/php/zf-resources-lang-ja/Zend_Validate.php
