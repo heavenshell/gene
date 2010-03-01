@@ -93,7 +93,8 @@ class Gene_TestHelper
         }
         $db      = new Gene_Db_Setting_Zend($config);
         $adapter = $db->load()->getDbAdapter($key);
-        $result  = $adapter->query(file_get_contents($sql));
+        usleep(100);
+        $adapter->getConnection()->exec(file_get_contents($sql));
         self::$_adapter = $adapter;
     }
 }
