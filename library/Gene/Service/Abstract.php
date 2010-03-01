@@ -96,6 +96,14 @@ abstract class Gene_Service_Abstract implements Gene_Service_Interface
     protected $_translate = array();
 
     /**
+     * Gene_Translate
+     *
+     * @var    mixed
+     * @access protected
+     */
+    protected $_translateObject = null;
+
+    /**
      * Path to translates
      *
      * @var mixed
@@ -152,70 +160,52 @@ abstract class Gene_Service_Abstract implements Gene_Service_Interface
     }
 
     /**
-     * Set translate path
+     * getTranslateObject
      *
-     * @param  mixed $path Path to locale file directory
+     * @param mixed $appPath
      * @access public
      * @return void
      */
-    public function setTranslatePath($path)
+    public function getTranslateObject($appPath = null)
     {
-        $this->_translatePath = $path;
-        return $this;
-    }
-
-    /**
-     * Get translate path
-     *
-     * @param  mixed $value
-     * @access public
-     * @return mixed Locale directory path
-     */
-    public function getTranslatePath()
-    {
-        if (is_null($this->_translatePath)) {
-            if (!is_null($this->getAppPath())) {
-                $path = rtrim($this->getAppPath(), '\//') . DIRECTORY_SEPARATOR
-                      . 'locales' . DIRECTORY_SEPARATOR;
-
-                return $path;
-            }
-            return null;
+        if (!is_null($this->_translateObject)) {
+            return $this->_translateObject;
+        }
+        if (is_null($appPath)) {
+            $appPath = $this->getAppPath();
         }
 
-        return $this->_translatePath;
+        $translate = new Gene_Translate($appPath);
+        $this->_translateObject = $translate;
+
+        return $translate;
     }
 
     /**
-     * Get cache object
+     * Get system validator
      *
-     * @param  mixed $path Path to master files
-     * @param  string $name Cache object name
+     * @param  string $file Validation file
+     * @param  mixed $path Path to validation file
      * @access public
-     * @return Zend_Cache Cache object
+     * @return Zend_Translate Transelate object
      */
-    public function getCacheFileObject($path, $name = 'translates')
+    public function getSystemTranslate($file = 'Zend_Validate.php', $path = null)
     {
-        $instance = Gene_Cache_File::getInstance($this->getAppPath());
-        $frontend = array(
-            'master_files' => $instance->directorySearch($path)
-        );
+        if (array_key_exists($file, $this->_translate)) {
+            return $this->_translate[$file];
+        }
 
-        $cache = $instance->setFrontend($frontend)->getCache($name);
-        return $cache;
-    }
+        $instance  = $this->getTranslateObject();
+        $default   = $instance->getValidateTranslate($file, $path);
+        if (is_null($path)) {
+            $path = $instance->getTranslatePath();
+        }
+        $translate = $instance->mergeTranslate($default, $path);
 
-    /**
-     * Set translate object
-     *
-     * @param  mixed $value
-     * @access public
-     * @return Gene_Service_Abstract Fluent interface
-     */
-    public function setTranslate($value)
-    {
-        $this->_translate = $value;
-        return $this;
+        // Set to property
+        $this->_translate[$file] = $translate;
+
+        return $translate;
     }
 
     /**
@@ -226,64 +216,15 @@ abstract class Gene_Service_Abstract implements Gene_Service_Interface
      * @access public
      * @return Zend_Translate transelates
      */
-    public function getTranslate($value, $type = 'ini', $env = null)
+    public function getTranslate($value, $type = 'ini')
     {
         if (array_key_exists($value, $this->_translate)) {
             return $this->_translate[$value];
         }
+        $instance  = $this->getTranslateObject();
+        $translate = $instance->getTranslate($value, $type);
 
-        $locale = new Zend_Locale();
-        $lang   = $locale->getLanguage();
-        $path   = $this->getTranslatePath() . $lang
-                . DIRECTORY_SEPARATOR . $value;
-
-        /**
-         * Todo:Use lamda function when PHP5.3 run.
-         * <code>
-         *   $createPath = function() use ($path, $type) {
-         *       $info = pathinfo($path)
-         *       if (!isset($info['extension'])) {
-         *           return $path .= '.' . $type;
-         *       }
-         *   };
-         *   $path = $createPath($path, $type);
-         * </code>
-         */
-        $info = pathinfo($path);
-        if (!isset($info['extension'])) {
-            $path .= '.' . $type;
-        }
-
-        if (!file_exists($path)) {
-            $iterator = new DirectoryIterator($this->getTranslatePath());
-            foreach ($iterator as $val) {
-                if (!$val->isDot() && $val->getFilename() !== $lang) {
-                    $locale = new Zend_Locale($val->getFilename());
-                    $lang   = $locale->getLanguage();
-                    $path   = $this->getTranslatePath() . $lang
-                            . DIRECTORY_SEPARATOR . $value;
-
-                    $info = pathinfo($path);
-                    if (!isset($info['extension'])) {
-                        $path .= '.' . $type;
-                    }
-
-                    break;
-                }
-            }
-        }
-
-        $cache = $this->getCacheFileObject($this->getTranslatePath() . $lang);
-
-        /**
-         * Create cache is same as Zend_Translate::setCache($cache);
-         */
-        $cacheId = pathinfo(str_replace('/', '_', $value), PATHINFO_FILENAME);
-        if (!$translate = $cache->load($cacheId)) {
-            $translate = new Zend_Translate($type, $path, $locale);
-            $cache->save($translate);
-        }
-
+        // Set to property
         $this->_translate[$value] = $translate;
 
         return $translate;
