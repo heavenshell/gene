@@ -153,7 +153,7 @@ class Gene_Service_Model extends Gene_Service_Abstract
         }
 
         if (is_null($this->_dbAdapter)) {
-            $db = Gene_Base::getParams('adapter');
+            $db = Gene_Base::getComponent('adapter');
             // If database adapter is instance of Zend_Db_Adapter_Abstract,
             // add to class variable for using transaction.
             $this->_dbAdapter = $db->getDbAdapter($adapter);

@@ -99,7 +99,7 @@ class Gene_Service_Model動作Test extends PHPUnit_Framework_TestCase
 
     public function testDbadpterを設定できる()
     {
-        $adapter  = Gene::getParams('adapter')->getDbAdapter('slave');
+        $adapter  = Gene::getComponent('adapter')->getDbAdapter('slave');
         $instance = Gene::load('Gene_Service_Model');
         $instance->setDbAdapter($adapter);
         $this->assertSame($instance->getDbAdapter(), $adapter);

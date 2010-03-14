@@ -78,11 +78,32 @@ class Gene_Base
     /**
      * Get params
      *
+     * <pre>
+     *   This method became deprecated
+     *   Use getComponent()
+     * </pre>
+     *
      * @param  mixed $key Key name
      * @access public
      * @return mixed
      */
     public static function getParams($key = null)
+    {
+        if (isset(self::$_params[$key])) {
+            return self::$_params[$key];
+        }
+
+        return self::$_params;
+    }
+
+    /**
+     * Get compornent
+     *
+     * @param  mixed $key
+     * @access public
+     * @return mixed Compornent
+     */
+    public static function getComponent($key = null)
     {
         if (isset(self::$_params[$key])) {
             return self::$_params[$key];
