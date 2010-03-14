@@ -68,8 +68,8 @@ class Gene_Service_Model動作Test extends PHPUnit_Framework_TestCase
         Gene_TestHelper::trancate($iniPath, $file, 'production');
 
         $options = array(
-            'env'      => 'testing',
-            'resource' => array('Cache', 'Config', 'Path', 'Db')
+            'env'       => 'testing',
+            'resources' => array('Cache', 'Config', 'Path', 'Db')
         );
         $path = GENE_APP_PATH;
         Gene::app($path, $options);

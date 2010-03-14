@@ -159,11 +159,11 @@ class Gene_Base
             $app->setConfigPath($options['config']);
         }
 
-        $resource = null;
-        if (isset($options['resource'])) {
-            $resource = $options['resource'];
+        $resources = null;
+        if (isset($options['resources'])) {
+            $resources = $options['resources'];
         }
-        $bootstrap     = $app->getBootstrap()->bootstrap($resource);
+        $bootstrap     = $app->getBootstrap()->bootstrap($resources);
         $params        = $bootstrap->getParams();
         self::$_params = $params;
 

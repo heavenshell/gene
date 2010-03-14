@@ -63,8 +63,8 @@ class Gene_Translateの動作Test extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $options = array(
-            'env'      => 'testing',
-            'resource' => array('Cache', 'Config', 'Path')
+            'env'       => 'testing',
+            'resources' => array('Cache', 'Config', 'Path')
         );
         $path = GENE_APP_PATH;
         Gene::app($path, $options);
