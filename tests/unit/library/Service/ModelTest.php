@@ -143,6 +143,18 @@ class Gene_Service_Model動作Test extends PHPUnit_Framework_TestCase
         $this->assertTrue($model instanceof Test_Service_Doctrine);
     }
 
+    public function testPhpdatamapperのモデルインスタンスを取得できる()
+    {
+        $iniPath = GENE_TEST_ROOT . '/var/config/phpdatamapper.ini';
+        $config  = Gene_Config::load($iniPath);
+        $db      = new Gene_Db_Setting_PhpDataMapper($config->production);
+        $adapter = $db->load()->getDbAdapter();
+
+        require_once 'var/Test/PhpDatamapper.php';
+        $mapper = new Test_Service_PhpDatamapper($adapter);
+        $this->assertTrue($mapper instanceof Test_Service_PhpDatamapper);
+    }
+
     public function test呼び出したモデルをプロパティにキャッシュする()
     {
         require_once 'var/Test/ModelMock.php';
