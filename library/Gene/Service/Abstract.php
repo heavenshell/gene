@@ -144,7 +144,7 @@ abstract class Gene_Service_Abstract implements Gene_Service_Interface
      */
     public function setMessages($value)
     {
-        $this->messages = $value;
+        $this->_messages = $value;
         return $this;
     }
 
