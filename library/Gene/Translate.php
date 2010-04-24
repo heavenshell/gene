@@ -289,7 +289,9 @@ class Gene_Translate extends Zend_Exception
      */
     private function _getPath($path, $lang, $type = 'locale')
     {
-        if (!file_exists($path)) {
+        if (file_exists($path)) {
+            return dirname($path);
+        } else {
             $translatePath = $this->getTranslatePath($type);
             $iterator = new DirectoryIterator($translatePath);
             foreach ($iterator as $val) {
