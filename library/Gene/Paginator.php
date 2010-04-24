@@ -78,12 +78,12 @@ class Gene_Paginator extends Gene_Paginator_Abstract
         if (isset($config['page'])) {
             $page = $config['page'];
         }
-        if (isset($config['perpage']) && is_null($config['perpage'])) {
+        if (isset($config['perpage']) && !is_null($config['perpage'])) {
             $perpage = $config['perpage'];
         } else {
             $perpage = $this->_perpage;
         }
-        if (isset($config['template']) && is_null($config['template'])) {
+        if (isset($config['template']) && !is_null($config['template'])) {
             $template = $config['template'];
         } else {
             $template = $this->_template;

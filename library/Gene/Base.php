@@ -76,6 +76,22 @@ class Gene_Base
     protected static $_params = null;
 
     /**
+     * Environment
+     */
+    protected static $_env = null;
+
+    /**
+     * Get environment
+     *
+     * @access public
+     * @return String Application environment
+     */
+    public static function getEnvironment()
+    {
+        return self::$_env;
+    }
+
+    /**
      * Get params
      *
      * <pre>
@@ -110,6 +126,24 @@ class Gene_Base
         }
 
         return self::$_params;
+    }
+
+    /**
+     * Remove instance
+     *
+     * @param  mixed $className Instance name to remove
+     * @access public
+     * @return void
+     */
+    public static function removeInstance($name = null)
+    {
+        if (is_null($name)) {
+            self::$_instance = null;
+        } else {
+            if (isset(self::$_instance[$name])) {
+                unset(self::$_instance[$name]);
+            }
+        }
     }
 
     /**
@@ -164,6 +198,7 @@ class Gene_Base
         if (!isset($options['env'])) {
             $options['env'] = 'production';
         }
+        self::$_env = $options['env'];
 
         require_once 'Zend/Application.php';
         $app = new Zend_Application(
