@@ -71,7 +71,7 @@ class Gene_Db_Setting_PhpDataMapper extends Gene_Db_Setting_Abstract
      */
     public function init()
     {
-        require_once 'phpDataMapper/Database/Adapter/Mysql.php';
+        require_once 'phpDataMapper/Adapter/Mysql.php';
     }
 
     /**
@@ -110,7 +110,7 @@ class Gene_Db_Setting_PhpDataMapper extends Gene_Db_Setting_Abstract
         }
         foreach ($config as $key => $val) {
             if (isset($val['params'])) {
-                $this->_db[$key] = new phpDataMapper_Database_Adapter_Mysql(
+                $this->_db[$key] = new phpDataMapper_Adapter_Mysql(
                     $val['params']['host'],
                     $val['params']['dbname'],
                     $val['params']['username'],

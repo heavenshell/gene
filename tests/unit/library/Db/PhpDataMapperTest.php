@@ -119,7 +119,7 @@ class Gene_Db_Setting_PhpDataMapperの動作Test extends PHPUnit_Framework_TestC
     {
         $db = new Gene_Db_Setting_PhpDataMapper($this->_config->production);
         $this->assertEquals(
-            $db->load()->getDbAdapter()->getDsn(),
+            $db->load()->getDbAdapter()->dsn(),
             sprintf(
                 'mysql:host=%s;dbname=%s',
                 $this->_config->production->database->default->params->host,
@@ -132,7 +132,7 @@ class Gene_Db_Setting_PhpDataMapperの動作Test extends PHPUnit_Framework_TestC
     {
         $db = new Gene_Db_Setting_PhpDataMapper($this->_config->testing);
         $this->assertEquals(
-            $db->load()->getDbAdapter('slave')->getDsn(),
+            $db->load()->getDbAdapter('slave')->dsn(),
              sprintf(
                 'mysql:host=%s;dbname=%s',
                 $this->_config->testing->database->slave->params->host,
@@ -145,6 +145,6 @@ class Gene_Db_Setting_PhpDataMapperの動作Test extends PHPUnit_Framework_TestC
     {
         $db      = new Gene_Db_Setting_PhpDataMapper($this->_config->production);
         $adapter = $db->load()->getDbAdapter();
-        $this->assertTrue($db->load()->getDbAdapter() instanceof phpDataMapper_Database_Adapter_Mysql);
+        $this->assertTrue($db->load()->getDbAdapter() instanceof phpDataMapper_Adapter_Mysql);
     }
 }
