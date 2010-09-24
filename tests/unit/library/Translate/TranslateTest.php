@@ -60,6 +60,18 @@ require_once dirname(dirname(dirname(__FILE__))) . '/prepare.php';
  */
 class Gene_Translateの動作Test extends PHPUnit_Framework_TestCase
 {
+    private static $_data = null;
+
+    public static function setUpBeforeClass()
+    {
+
+        $path = GENE_TEST_ROOT . '/var/resources/languages/ja';
+        ob_start();
+        $data = include_once $path . '/Another.php';
+        ob_end_clean();
+        self::$_data = $data;
+    }
+
     public function setUp()
     {
         $options = array(
@@ -96,12 +108,9 @@ class Gene_Translateの動作Test extends PHPUnit_Framework_TestCase
         $path      = GENE_TEST_ROOT . '/var/resources/languages/ja';
         $translate = $instance->getValidateTranslate();
         $result    = $instance->mergeTranslate($translate, $path);
-        ob_start();
-        $data = include $path . '/Another.php';
-        ob_end_clean();
         $actual  = $result->getAdapter()->getMessages();
-        $key = key($data);
-        $this->assertSame($actual[$key], $data[$key]);
+        $key = key(self::$_data);
+        $this->assertSame($actual[$key], self::$_data[$key]);
     }
 
     public function test上書きしたメッセージがエラー時に表示する()
@@ -111,10 +120,7 @@ class Gene_Translateの動作Test extends PHPUnit_Framework_TestCase
         $translate = $instance->getValidateTranslate();
         $result    = $instance->mergeTranslate($translate, $path);
 
-        ob_start();
-        $data = include $path . '/Another.php';
-        ob_end_clean();
-        $key = key($data);
+        $key = key(self::$_data);
 
         Zend_Validate_Abstract::setDefaultTranslator($result);
         $validator = new Zend_Validate_EmailAddress();
@@ -122,7 +128,7 @@ class Gene_Translateの動作Test extends PHPUnit_Framework_TestCase
         $messages = $validator->getMessages();
         $this->assertSame(
             $messages[Zend_Validate_EmailAddress::INVALID_HOSTNAME],
-            $data[$key]
+            self::$_data[$key]
         );
     }
 }
