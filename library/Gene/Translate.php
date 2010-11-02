@@ -53,7 +53,7 @@
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
-class Gene_Translate extends Zend_Exception
+class Gene_Translate
 {
     /**
      * Application path
