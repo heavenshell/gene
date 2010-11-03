@@ -2,4 +2,6 @@
 *~
 .DS_Store
 app/var/cache/**/*
+app/var/log/**/*
+app/var/session/*1
 unit/var/cache/**/*
