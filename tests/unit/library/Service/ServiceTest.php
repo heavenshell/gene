@@ -60,7 +60,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/prepare.php';
  */
 class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    public static function setUpBeforeClass()
     {
         require_once 'var/Test/ServiceMock.php';
         require_once 'var/Test/BeforeHookMock.php';
@@ -80,7 +80,7 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
 
     }
 
-    public function tearDown()
+    public static function tearDownAfterClass()
     {
         $adapter = Gene_TestHelper::getDbAdapter();
         $adapter->closeConnection();
@@ -476,12 +476,12 @@ class Gene_Serviceの動作Test extends PHPUnit_Framework_TestCase
             'name' => 'test'
         );
         $service = Gene::load('Test_ServiceMock');
-        $result  = $service->setNamespace()->create($data);
+        $id      = $service->setNamespace()->create($data);
         $delete  = array(
-            'id'   => $result,
+            'id' => $id,
         );
         $result = $service->delete($delete);
-        $this->assertSame($result, 1);
+        $this->assertSame($result, intval($id));
     }
 
     public function testdeleteが正常終了した場合データベースから削除する()
