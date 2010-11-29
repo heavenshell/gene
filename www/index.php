@@ -77,7 +77,7 @@ if (!preg_match('"' . $appPath . '"', $includePath, $match)) {
 }
 
 /**
- * @see Gene
+ * @see Gene_Base
  */
-require_once 'Gene.php';
-Gene::run($appPath);
+require_once 'Gene/Base.php';
+Gene_Base::run($appPath);
