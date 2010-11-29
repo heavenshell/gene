@@ -188,7 +188,9 @@ class Gene_Base
         self::$_appPath = GENE_APP_PATH;
 
         if (!isset($options['ini'])) {
-            $options['ini'] = rtrim(GENE_APP_PATH, '\\/') . '/config/app.ini';
+            $options['ini'] = rtrim(GENE_APP_PATH, '\\/')
+                            . DIRECTORY_SEPARATOR . 'config'
+                            . DIRECTORY_SEPARATOR . 'app.ini';
         }
         if (!isset($options['env'])) {
             $options['env'] = 'production';
