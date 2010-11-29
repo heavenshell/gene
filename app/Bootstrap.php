@@ -1,6 +1,6 @@
 <?php
 /**
- * Gene
+ * Bootstrap application.
  *
  * PHP version 5.2
  *
@@ -44,12 +44,7 @@
  */
 
 /**
- * @see Gene_Base
- */
-require_once 'Gene/Base.php';
-
-/**
- * Gene
+ * Bootstrap.
  *
  * @category  Gene
  * @package   Gene
@@ -58,16 +53,7 @@ require_once 'Gene/Base.php';
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
-class Gene extends Gene_Base
+class Bootstrap extends Gene_Bootstrap
 {
-    /**
-     * Run application
-     *
-     * @access public
-     * @return void
-     */
-    public static function run($appPath, array $options = array())
-    {
-        return Gene_Base::run($appPath, $options);
-    }
+    // If you have application specific, write here and change config/app.ini.
 }
