@@ -56,11 +56,6 @@
 class Gene_Base
 {
     /**
-     * Gene Version
-     */
-    const GENE_VERSION = '0.3';
-
-    /**
      * Loaded class's instance
      */
     protected static $_instance = null;
