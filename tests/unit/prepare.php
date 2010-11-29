@@ -66,5 +66,5 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'TestHelper.php'
 echo 'Versions:' . PHP_EOL;
 echo '  PHP ' . phpversion() . PHP_EOL;
 echo '  Zend Framework ' . Zend_Version::VERSION . PHP_EOL;
-echo '  Gene ' . Gene::GENE_VERSION . PHP_EOL;
+echo '  Gene ' . Gene::VERSION . PHP_EOL;
 echo PHP_EOL;
