@@ -59,25 +59,25 @@ class Gene_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * Application path
      *
      * @var    mixed
-     * @access private
+     * @access protected
      */
-    private $_appPath = null;
+    protected $_appPath = null;
 
     /**
      * Path to config direcotry
      *
      * @var    mixed
-     * @access private
+     * @access protected
      */
-    private $_configPath = null;
+    protected $_configPath = null;
 
     /**
      * Cache for config file
      *
      * @var    mixed
-     * @access private
+     * @access protected
      */
-    private $_cache = null;
+    protected $_cache = null;
 
     /**
      * Params
