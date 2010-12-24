@@ -7,7 +7,7 @@ class Test_AfterHookMock extends Gene_Service
     {
        require_once 'Zend.php';
        $this->_session   = Gene::load('Gene_Service_Session');
-       $this->_dao       = $this->getDao('Test_Service_Zend');
+       $this->_dao       = Gene::load('Gene_Service_Model')->getDao('Test_Service_Zend');
        $this->getTranslateObject()
             ->setTranslatePath(GENE_TEST_ROOT . '/var/locales/');
        $this->_validator = $this->getValidator('Test_Service_Validator', 'message.ini');
