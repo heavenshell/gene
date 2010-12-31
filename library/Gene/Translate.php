@@ -213,7 +213,13 @@ class Gene_Translate
 
         $path      = $this->_getPath($path, $lang, 'resources/languages');
         $scan      = array('scan' => Zend_Translate::LOCALE_DIRECTORY);
-        $translate = new Zend_Translate('array', $path, $locale, $scan);
+        $options   = array(
+            'adapter' => 'array',
+            'content' => $path,
+            'locale'  => $locale,
+            'scan'    => $scan,
+        );
+        $translate = new Zend_Translate($options);
         $this->_translate[$file] = $translate;
 
         return $translate;
@@ -283,6 +289,12 @@ class Gene_Translate
          */
         $cacheId = pathinfo(str_replace('/', '_', $value), PATHINFO_FILENAME);
         if (!$translate = $cache->load($cacheId)) {
+            $options = array(
+                'adapter' => $type,
+                'content' => $path,
+                'locale'  => $locale->getLanguage()
+            );
+            $translate = new Zend_Translate($options);
             $translate = new Zend_Translate($type, $path, $locale);
             $cache->save($translate);
         }
