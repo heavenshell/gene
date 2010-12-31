@@ -83,18 +83,27 @@ class Gene_Translate
     );
 
     /**
-     * Constructor
+     * Path to cache.
+     *
+     * @var    mixed
+     * @access protected
+     */
+    protected $_cachePath = null;
+
+    /**
+     * Constructor.
      *
      * @access public
      * @return void
      */
-    public function __construct($appPath = null)
+    public function __construct($appPath = null, $cachePath = null)
     {
-        $this->_appPath = $appPath;
+        $this->_appPath   = $appPath;
+        $this->_cachePath = $cachePath;
     }
 
     /**
-     * setAppPath
+     * Set application directory path.
      *
      * @param  mixed $path Application path
      * @access public
@@ -107,7 +116,7 @@ class Gene_Translate
     }
 
     /**
-     * Get application directory path
+     * Get application directory path.
      *
      * @access public
      * @return mixed Application path
@@ -118,7 +127,7 @@ class Gene_Translate
     }
 
     /**
-     * Get cache object
+     * Get cache object.
      *
      * @param  mixed $path Path to master files
      * @param  string $name Cache object name
@@ -127,8 +136,13 @@ class Gene_Translate
      */
     public function getCacheFileObject($path, $name = 'translates')
     {
-        $instance = Gene_Cache_File::getInstance($this->getAppPath());
-        $frontend = array(
+        $cachePath = $this->_cachePath;
+        if (is_null($cachePath)) {
+            $cachePath = $this->getAppPath();
+        }
+
+        $instance  = Gene_Cache_File::getInstance($cachePath);
+        $frontend  = array(
             'master_files' => $instance->directorySearch($path)
         );
 
