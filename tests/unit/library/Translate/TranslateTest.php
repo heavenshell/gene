@@ -90,8 +90,8 @@ class Gene_Translateの動作Test extends PHPUnit_Framework_TestCase
 
     public function testユーザ定義のtranslateオブジェクトを取得できる()
     {
-        $instance  = new Gene_Translate(GENE_TEST_ROOT . '/var');
-        $translate = $instance->getTranslate('message.ini', 'locales');
+        $instance  = new Gene_Translate(GENE_TEST_ROOT . '/var', GENE_TEST_ROOT);
+        $translate = $instance->getTranslate('message.ini');
         $this->assertTrue($translate instanceof Zend_Translate);
     }
 
