@@ -4,7 +4,7 @@
  *
  * PHP version 5.2
  *
- * Copyright (c) 2009-2010 Shinya Ohyanagi, All rights reserved.
+ * Copyright (c) 2009-2011 Shinya Ohyanagi, All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -38,7 +38,7 @@
  * @category  Gene
  * @package   Gene_Service
  * @version   $id$
- * @copyright 2009-2010 Shinya Ohyanagi
+ * @copyright 2009-2011 Shinya Ohyanagi
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
@@ -49,7 +49,7 @@
  * @category  Gene
  * @package   Gene_Service
  * @version   $id$
- * @copyright 2009-2010 Shinya Ohyanagi
+ * @copyright 2009-2011 Shinya Ohyanagi
  * @author    Shinya Ohyanagi <sohyanagi@@gmail.com>
  * @license   New BSD License
  */
